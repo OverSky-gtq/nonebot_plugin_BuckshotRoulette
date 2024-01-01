@@ -26,8 +26,8 @@ config = Config.parse_obj(global_config)
 shot = on_command("shot",aliases = {"射击"})
 add = on_command("加入游戏")
 item = on_command("道具")
-use = on_command("使用",aliases = {"用,use"})
-help = on_command("教程",aliases = {"帮助,help"})
+use = on_command("使用",aliases = {"用","use"})
+help = on_command("教程",aliases = {"帮助","help"})
 set_item = on_command("增加道具")
 end = on_command("结束游戏")
 
@@ -92,7 +92,8 @@ async def _(event: GroupMessageEvent,arg: Message = CommandArg()):
         game.new_bullet_list(game._bullet_num)
         new_item = game._round_num % 3 + 2
         game.flush_items(new_item)
-        await shot.finish(f"新的一轮开始，发放道具{new_item}个，子弹一览：{game.get_bullet()}")
+        await shot.send(f"新的一轮开始，发放道具{new_item}个，子弹一览：{game.get_bullet()}")
+        await shot.finsih(game.get_item())
 
 @use.handle()
 async def _(event: GroupMessageEvent,arg: Message = CommandArg()):
